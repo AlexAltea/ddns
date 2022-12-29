@@ -46,7 +46,15 @@ def main():
         help="continuously monitor/update IP changes every N seconds", type=float)
     parser.add_argument("-c", "--config", metavar="<path/to/config.json>",
         help="configuration file", required=True, type=argparse.FileType('r'))
+    parser.add_argument("-l", "--log", metavar="LEVEL", default="WARNING",
+        help="logging verbosity, e.g. DEBUG, INFO, WARNING (default)", type=str)
     args = parser.parse_args()
+
+    # Update logging level and formatting
+    loglevel = getattr(logging, args.log.upper(), None)
+    if loglevel is None:
+        raise ValueError('Invalid log level: %s' % args.log)
+    logging.basicConfig(level=loglevel, format='[%(asctime)s] %(levelname)s: %(message)s')
 
     # Update once or continuously
     config = json.loads(args.config.read())
