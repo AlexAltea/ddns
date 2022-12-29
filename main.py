@@ -14,7 +14,7 @@ def update_once(config):
         for provider in config['dns']:
             dns.set_dns_records(ip, **provider)
     except BaseException as error:
-        print('An exception occurred: {}'.format(error))
+        logging.error(f"An exception occurred: {error}")
 
 def update_every(config, seconds):
     last = None
@@ -23,7 +23,7 @@ def update_every(config, seconds):
         try:
             ip = routers.get_public_ip(**config['router'])
         except BaseException as error:
-            print('An exception occurred: {}'.format(error))
+            logging.error(f"An exception occurred: {error}")
 
         # If unchanged, sleep and repeat
         if last == ip:
@@ -37,7 +37,7 @@ def update_every(config, seconds):
             try:
                 dns.set_dns_records(ip, **provider)
             except BaseException as error:
-                print('An exception occurred: {}'.format(error))
+                logging.error(f"An exception occurred: {error}")
         time.sleep(seconds)
 
 def main():
