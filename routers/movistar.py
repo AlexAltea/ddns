@@ -1,3 +1,4 @@
+import io
 import pandas
 import re
 import requests
@@ -34,6 +35,6 @@ def get_public_ip(host, password, **kwargs):
     response = requests.get(f'{base}/broadband_list.cgi', cookies=response.cookies)
     if response.status_code != 200:
         raise Exception("Could not obtain GPON Connections Table")
-    df = pandas.read_html(response.text, header=0)[0]
+    df = pandas.read_html(io.StringIO(response.text), header=0)[0]
     ip = df.query(f"Name == 'Internet'")['IP'].item()
     return ip
