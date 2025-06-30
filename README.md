@@ -21,7 +21,8 @@ Parameters to define the router whose public IP to resolve.
 
 | Type       | Requires   | Description |
 |------------|------------|-------------|
-| `movistar` | `password` | Routers deployed by Spanish ISP [Movistar](https://www.movistar.es/) and affiliates, e.g. [O2](https://o2online.es/). |
+| `movistar` | `password` | Routers deployed by Spanish ISP [Movistar](https://www.movistar.es/) and affiliates, e.g. [O2](https://o2online.es/). Requires HTTP access. Tested with GPT-2741GNAC. |
+| `turris`   | `username`, `password` | Routers manufactured by [Turris](https://www.turris.com/en/). Requires SSH access. Tested with Turris Omnia Wi-Fi 6. |
 
 ### DNS
 
