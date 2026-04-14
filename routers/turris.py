@@ -2,7 +2,7 @@ import logging
 import paramiko
 
 def get_public_ip(host, username, password):
-    command = "/sbin/ifconfig pppoe-wan | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }'"
+    command = "/sbin/ifconfig $(ip -o -4 route show to default | awk '{print $5}') | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1 }'"
     try:
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
