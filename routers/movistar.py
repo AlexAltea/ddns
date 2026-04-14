@@ -37,4 +37,6 @@ def get_public_ip(host, password, **kwargs):
         raise Exception("Could not obtain GPON Connections Table")
     df = pandas.read_html(io.StringIO(response.text), header=0)[0]
     ip = df.query(f"Name == 'Internet'")['IP'].item()
+    if not isinstance(ip, str):
+        return None
     return ip
